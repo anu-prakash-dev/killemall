@@ -3,6 +3,7 @@ package be.zwaldeck.killemall.component;
 import be.zwaldeck.killemall.entity.Direction;
 import be.zwaldeck.killemall.entity.Entity;
 import be.zwaldeck.killemall.entity.State;
+import be.zwaldeck.killemall.entity.config.EntityConfig;
 import be.zwaldeck.killemall.map.Map;
 import be.zwaldeck.killemall.map.MapManager;
 import com.badlogic.gdx.maps.MapLayer;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 public abstract class PhysicsComponent implements Component {
 
     protected Vector2 nextEntityPosition;
-    protected Vector2 currentEntityPostion;
+    protected Vector2 currentEntityPosition;
     protected HashMap<Direction, Boolean> currentDirections;
     protected State currentState;
     protected Vector2 velocity;
@@ -26,9 +27,9 @@ public abstract class PhysicsComponent implements Component {
     protected Json json;
 
     protected PhysicsComponent() {
-        nextEntityPosition = new Vector2(0,0);
-        currentEntityPostion = new Vector2(0,0);
-        velocity = new Vector2(8,8);
+        nextEntityPosition = new Vector2(0, 0);
+        currentEntityPosition = new Vector2(0, 0);
+        velocity = new Vector2(8, 8);
         boundingBox = new Rectangle();
 
         json = new Json();
@@ -46,16 +47,16 @@ public abstract class PhysicsComponent implements Component {
     protected boolean isCollisionWithMapLayer(Entity entity, MapManager mapManager) {
         MapLayer collisionLayer = mapManager.getMapLayer(Map.COLLISION_LAYER);
 
-        if(collisionLayer == null) {
+        if (collisionLayer == null) {
             return false;
         }
 
         Rectangle rectangle = null;
-        for(MapObject object : collisionLayer.getObjects()) {
-            if(object instanceof RectangleMapObject) {
-                rectangle = ((RectangleMapObject)object).getRectangle();
-                if(boundingBox.overlaps(rectangle)) {
-//                    entity.sendMessageToComponents(MessageType.COLLISION_WITH_MAP);
+        for (MapObject object : collisionLayer.getObjects()) {
+            if (object instanceof RectangleMapObject) {
+                rectangle = ((RectangleMapObject) object).getRectangle();
+                if (boundingBox.overlaps(rectangle)) {
+                    entity.sendMessageToComponents(MessageType.COLLISION_WITH_MAP);
                     return true;
                 }
             }
@@ -65,31 +66,31 @@ public abstract class PhysicsComponent implements Component {
     }
 
     protected void setNextEntityPositionToCurrent(Entity entity) {
-        this.currentEntityPostion.x = nextEntityPosition.x;
-        this.currentEntityPostion.y = nextEntityPosition.y;
+        this.currentEntityPosition.x = nextEntityPosition.x;
+        this.currentEntityPosition.y = nextEntityPosition.y;
 
-//        entity.sendMessageToComponents(MessageType.CURRENT_POSITION, json.toJson(currentEntityPostion));
+        entity.sendMessageToComponents(MessageType.CURRENT_POSITION, json.toJson(currentEntityPosition));
     }
 
     protected void calculateNextEntityPosition(float deltaTime) {
-        float testX = currentEntityPostion.x;
-        float testY = currentEntityPostion.y;
+        float testX = currentEntityPosition.x;
+        float testY = currentEntityPosition.y;
 
         velocity.scl(deltaTime);
 
-        if(currentDirections.get(Direction.LEFT)) {
+        if (currentDirections.get(Direction.LEFT)) {
             testX -= velocity.x;
         }
 
-        if(currentDirections.get(Direction.RIGHT)) {
+        if (currentDirections.get(Direction.RIGHT)) {
             testX += velocity.x;
         }
 
-        if(currentDirections.get(Direction.DOWN)) {
+        if (currentDirections.get(Direction.DOWN)) {
             testY -= velocity.y;
         }
 
-        if(currentDirections.get(Direction.UP)) {
+        if (currentDirections.get(Direction.UP)) {
             testY += velocity.y;
         }
 
@@ -98,15 +99,19 @@ public abstract class PhysicsComponent implements Component {
         velocity.scl(1 / deltaTime);
     }
 
-    protected void initBoundingBox() {
-        boundingBox.setWidth(32);
-        boundingBox.setHeight(32);
+    protected void initBoundingBox(EntityConfig config) {
+        boundingBox.setWidth(config.getWidth());
+        boundingBox.setHeight(config.getHeight());
 
-        updateBoundingBox();
+        updateBoundingBox(currentEntityPosition);
     }
 
-    protected void updateBoundingBox() {
-        boundingBox.x = nextEntityPosition.x;
-        boundingBox.y = nextEntityPosition.y;
+    protected void updateBoundingBox(Vector2 position) {
+        boundingBox.x = position.x;
+        boundingBox.y = position.y;
+    }
+
+    public Rectangle getBoundingBox() {
+        return boundingBox;
     }
 }

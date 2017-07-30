@@ -1,6 +1,8 @@
 package be.zwaldeck.killemall.screen;
 
 import be.zwaldeck.killemall.KillEmAllGame;
+import be.zwaldeck.killemall.entity.Entity;
+import be.zwaldeck.killemall.entity.EntityFactory;
 import be.zwaldeck.killemall.map.MapFactory;
 import be.zwaldeck.killemall.map.MapManager;
 import com.badlogic.gdx.Gdx;
@@ -24,12 +26,15 @@ public class GameScreen extends AbstractScreen {
     private MapManager mapManager;
     private InputMultiplexer multiplexer;
 
+    private Entity player;
+
     public GameScreen(KillEmAllGame game) {
         super(game);
     }
 
     @Override
     public void show() {
+        player = EntityFactory.getInstance().getEntity(EntityFactory.EntityType.PLAYER);
         camera = new OrthographicCamera();
         viewport = new ExtendViewport(WOLD_WIDTH, WOLD_HEIGHT, camera);
         viewport.apply(true);
@@ -38,7 +43,7 @@ public class GameScreen extends AbstractScreen {
 
         multiplexer = new InputMultiplexer();
         //todo the hud input must come first
-//        multiplexer.addProcessor(player.getInputProcessor());
+        multiplexer.addProcessor(player.getInputProcessor());
 
         Gdx.input.setInputProcessor(multiplexer);
 
@@ -63,13 +68,13 @@ public class GameScreen extends AbstractScreen {
 
         mapRenderer.setView(camera);
         mapRenderer.render();
-        batch.begin();
-        //draw entities
-        batch.end();
 
         //draw hud
 
-        update(delta);
+        //update & draw entities
+        mapManager.updateMapEntities(batch, delta);
+        player.update(mapManager, batch, delta);
+
     }
 
     @Override
@@ -80,9 +85,5 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void dispose() {
         mapRenderer.dispose();
-    }
-
-    private void update(float delta) {
-
     }
 }
