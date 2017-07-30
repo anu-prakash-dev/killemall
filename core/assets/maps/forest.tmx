@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="2017.07.26" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="forest_tileset" tilewidth="32" tileheight="32" tilecount="256" columns="8">
+  <image source="forest_tileset.png" width="256" height="1024"/>
+ </tileset>
+ <layer name="GRASS" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMBKH7/qUHy6Hgqqmqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqv8AX0MnEQ==
+  </data>
+ </layer>
+ <layer name="BORDER" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1zEKAkEQBdHKvIX+0Puf0F0EM8HIraAeNJ0ODMUwA+7HPNqX7x3zJBbnXezqQ+Rj1IdJfbiM+jCpD5dRHyb14TLqw6Q+XEZ9mNSHy6gPk/pwGfVhUh8uoz5M6sNl1IdJfbiM+jCpD5dRHyb14TLqw6Q+XEZ9mNSHy6gPk/pwGfVhUh8uoz5M6sNl1IdJfbiM+jCpD5dRHyb14TLqw6Q+XEZ9mNSHy6gPk/pwGfVhUh8uoz5M6sNl1IdJfbiM+jCpD5dRHyb14TLqw6Q+XEZ9mNSHy6gPk/pwGfVhUh8uoz5M6sNl1IdJfbiM+jCpD5dRHyb14TLqw6Q+XEZ9mNSHy6gPk/pwGfVhUh8uoz5M6sNl1IdJfbiM+jCpD5dRHya/9HH7wznyNurDpPfDZdSHSX24jPowqQ+XUR8m3/roz3GNUR8mvR8u430n92Me7cv3eRcvxd8ziQ==
+  </data>
+ </layer>
+ <layer name="DECORATION" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt28EOgjAMAFBu/P8fezAkJGqy4QZt997Jk2m7tgSFbQN67U8HwFT75owBrrI/4VlmkFY9vaKvPqkJ8A87hIxW6NsVcgT62Q0ANdnvbaLWKWpcQFzV9ka1fKCqSLO62vOQK+UKwDxRryez4oqaL3Afz5TCc8wUcFh1H9ydt/sqiM0sQU1mu91q/+1m4DyIxp5gFVV+LyAfvUBWereeDGeaIUaAM/fUY6ghmejXudQ3HmfSR73mWqm+GXLNECMAbart9Gr5wJn+ZqQo/bT/+AxAfvb6mzrE5nwgj2jvAsyIx076rkJdKuQAQEyuMTDWyJm68l1mmoNeuEbdAIBqXqwLAg4=
+  </data>
+ </layer>
+ <objectgroup name="COLLSION"/>
+ <objectgroup name="SPAWN"/>
+</map>
