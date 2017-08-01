@@ -29,7 +29,7 @@ public abstract class PhysicsComponent implements Component {
     protected PhysicsComponent() {
         nextEntityPosition = new Vector2(0, 0);
         currentEntityPosition = new Vector2(0, 0);
-        velocity = new Vector2(8, 8);
+        velocity = new Vector2(100, 100);
         boundingBox = new Rectangle();
 
         json = new Json();

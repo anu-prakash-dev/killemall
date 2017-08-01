@@ -3,6 +3,7 @@ package be.zwaldeck.killemall.component;
 import be.zwaldeck.killemall.entity.Direction;
 import be.zwaldeck.killemall.entity.Entity;
 import be.zwaldeck.killemall.entity.State;
+import be.zwaldeck.killemall.map.MapManager;
 import com.badlogic.gdx.utils.Json;
 
 public abstract class InputComponent implements Component {
@@ -16,6 +17,6 @@ public abstract class InputComponent implements Component {
         json = new Json();
     }
 
-    public abstract void update(Entity entity, float delta);
+    public abstract void update(Entity entity, MapManager mapManager, float delta);
 
 }

@@ -12,5 +12,8 @@ public class PackAssets {
 
         TexturePacker.process(settings, "../../desktop/player", "packs", "player.atlas");
         System.out.println("Done packing player assets");
+
+        TexturePacker.process(settings, "../../desktop/hud", "packs", "hud.atlas");
+        System.out.println("Done packing hud assets");
     }
 }

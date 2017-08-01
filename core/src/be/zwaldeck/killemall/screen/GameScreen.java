@@ -37,7 +37,7 @@ public class GameScreen extends AbstractScreen {
         player = EntityFactory.getInstance().getEntity(EntityFactory.EntityType.PLAYER);
         camera = new OrthographicCamera();
         viewport = new ExtendViewport(WOLD_WIDTH, WOLD_HEIGHT, camera);
-        viewport.apply(true);
+        viewport.apply();
         mapManager = new MapManager(camera);
         mapManager.loadMap(MapFactory.MapType.FOREST);
 

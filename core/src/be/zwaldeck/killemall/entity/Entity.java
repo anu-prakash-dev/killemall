@@ -46,7 +46,7 @@ public class Entity {
     }
 
     public void update(MapManager mapManager, Batch batch, float delta) {
-        inputComponent.update(this, delta);
+        inputComponent.update(this, mapManager, delta);
         physicsComponent.update(this, mapManager, delta);
         graphicsComponent.update(this, mapManager, batch, delta);
     }
@@ -67,5 +67,13 @@ public class Entity {
         }
 
         return null;
+    }
+
+    public float getWidth() {
+        return config.getWidth();
+    }
+
+    public float getHeight() {
+        return config.getHeight();
     }
 }

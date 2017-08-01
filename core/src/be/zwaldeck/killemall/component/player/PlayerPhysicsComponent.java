@@ -6,8 +6,15 @@ import be.zwaldeck.killemall.entity.Direction;
 import be.zwaldeck.killemall.entity.Entity;
 import be.zwaldeck.killemall.entity.config.EntityConfig;
 import be.zwaldeck.killemall.map.MapManager;
+import com.badlogic.gdx.math.Vector2;
 
 public class PlayerPhysicsComponent extends PhysicsComponent{
+
+    public PlayerPhysicsComponent() {
+        super();
+
+        velocity = new Vector2(200, 200);
+    }
 
     @Override
     public void receiveMessage(MessageType type, String message) {
@@ -16,8 +23,8 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         switch (type) {
             case INIT_ENTITY:
                 EntityConfig config = json.fromJson(EntityConfig.class, parts[0]);
-                currentEntityPosition.set(0,0);
-                nextEntityPosition.set(0,0);
+                currentEntityPosition.set(1600,1600);
+                nextEntityPosition.set(1600,1600);
                 initBoundingBox(config);
                 break;
             case IS_LEFT:

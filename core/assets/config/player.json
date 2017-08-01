@@ -1,151 +1,151 @@
 {
-  "width": 25,
-  "height": 25,
+  "width": 64,
+  "height": 55,
   "animations": [
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-idle_flashlight",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "FLASHLIGHT_IDLE",
       "playMode": "LOOP"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-meleeattack_flashlight",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "FLASHLIGHT_MELEE",
       "playMode": "NORMAL"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-move_flashlight",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "FLASHLIGHT_WALKING",
       "playMode": "LOOP"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-idle_handgun",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "HANDGUN_IDLE",
       "playMode": "LOOP"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-meleeattack_handgun",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "HANDGUN_MELEE",
       "playMode": "NORMAL"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-move_handgun",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "HANDGUN_WALKING",
       "playMode": "LOOP"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-reload_handgun",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "HANDGUN_RELOAD",
       "playMode": "NORMAL"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-shoot_handgun",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "HANDGUN_SHOOTING",
       "playMode": "NORMAL"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-idle_knife",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "KNIFE_IDLE",
       "playMode": "LOOP"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-meleeattack_knife",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "KNIFE_MELEE",
       "playMode": "NORMAL"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-move_knife",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "KNIFE_WALKING",
       "playMode": "LOOP"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-idle_rifle",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "RIFLE_IDLE",
       "playMode": "LOOP"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-meleeattack_rifle",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "RIFLE_MELEE",
       "playMode": "NORMAL"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-move_rifle",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "RIFLE_WALKING",
       "playMode": "LOOP"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-reload_rifle",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "RIFLE_RELOAD",
       "playMode": "NORMAL"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-shoot_rifle",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "RIFLE_SHOOTING",
       "playMode": "NORMAL"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-idle_shotgun",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "SHOTGUN_IDLE",
       "playMode": "LOOP"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-meleeattack_shotgun",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "SHOTGUN_MELEE",
       "playMode": "NORMAL"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-move_shotgun",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "SHOTGUN_WALKING",
       "playMode": "LOOP"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-reload_shotgun",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "SHOTGUN_RELOAD",
       "playMode": "NORMAL"
     },
     {
       "atlasName": "player.atlas",
       "regionName": "survivor-shoot_shotgun",
-      "frameTime": 0.25,
+      "frameTime": 0.1,
       "type": "SHOTGUN_SHOOTING",
       "playMode": "NORMAL"
     }

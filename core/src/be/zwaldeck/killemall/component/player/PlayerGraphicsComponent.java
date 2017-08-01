@@ -6,12 +6,32 @@ import be.zwaldeck.killemall.entity.Entity;
 import be.zwaldeck.killemall.entity.State;
 import be.zwaldeck.killemall.entity.config.AnimationType;
 import be.zwaldeck.killemall.entity.config.EntityConfig;
+import be.zwaldeck.killemall.map.Map;
 import be.zwaldeck.killemall.map.MapManager;
+import be.zwaldeck.killemall.screen.GameScreen;
+import be.zwaldeck.killemall.util.AssetUtil;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class PlayerGraphicsComponent extends GraphicsComponent {
+
+    private static final float ROTATION_OFFSET = -0;
+
+    //tmp
+    ShapeRenderer shapeRenderer = new ShapeRenderer();
+
+    private Vector2 mousePosition = new Vector2(0, 0);
+    private float angle;
+
+    private TextureRegion crosshairTexture;
 
     @Override
     public void receiveMessage(MessageType type, String message) {
@@ -20,15 +40,19 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
         switch (type) {
             case INIT_ENTITY:
                 EntityConfig config = json.fromJson(EntityConfig.class, parts[0]);
-                currentPosition = new Vector2(0,0);
+                currentPosition = new Vector2(1600, 1600);
                 loadAnimations(config.getAnimations());
-                currentAnimation = animations.get(AnimationType.FLASHLIGHT_IDLE);
+                currentAnimation = animations.get(AnimationType.HANDGUN_IDLE);
+                loadCrosshair();
                 break;
             case CURRENT_POSITION:
                 currentPosition = json.fromJson(Vector2.class, parts[0]);
                 break;
             case CURRENT_STATE:
                 currentState = json.fromJson(State.class, parts[0]);
+                break;
+            case CURRENT_MOUSE_POSITION:
+                mousePosition = json.fromJson(Vector2.class, parts[0]);
                 break;
         }
     }
@@ -39,10 +63,25 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
         updateAnimation(delta);
 
         updateCamera(mapManager);
+        updateAngle();
 
         batch.begin();
-        batch.draw(currentFrame, currentPosition.x, currentPosition.y);
+        batch.draw(currentFrame,
+                currentPosition.x, currentPosition.y,
+                entity.getWidth() / 2.0f, entity.getHeight() / 2.0f,
+                entity.getWidth(), entity.getHeight(),
+                1, 1,
+                angle, true);
+        batch.draw(crosshairTexture, mousePosition.x - 16, mousePosition.y - 16, 32 ,32);
         batch.end();
+
+        //tmps
+        Rectangle bb = entity.getBoundingBox();
+        shapeRenderer.setProjectionMatrix(mapManager.getCamera().combined);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.rect(bb.x, bb.y, bb.width, bb.height);
+        shapeRenderer.end();
     }
 
     private void selectCurrentAnimation() {
@@ -52,8 +91,35 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
     private void updateCamera(MapManager mapManager) {
         Camera camera = mapManager.getCamera();
 
-        camera.position.x = currentPosition.x;
-        camera.position.y = currentPosition.y;
+        float x = currentPosition.x;
+        float y = currentPosition.y;
+
+        TiledMapTileLayer layer = (TiledMapTileLayer) mapManager.getMapLayer(Map.GRASS_LAYER);
+        float mapWidthInPx = layer.getTileWidth() * layer.getWidth();
+        float mapHeightInPx = layer.getTileHeight() * layer.getHeight();
+
+        if (x > GameScreen.WOLD_WIDTH / 2.0f && x <= mapWidthInPx - (GameScreen.WOLD_WIDTH / 2)) {
+            camera.position.x = x;
+        }
+
+        if (y > GameScreen.WOLD_HEIGHT / 2.0f && y <= mapHeightInPx - (GameScreen.WOLD_HEIGHT / 2)) {
+            camera.position.y = y;
+        }
+
         camera.update();
+    }
+
+    private void updateAngle() {
+        angle = (float) ((MathUtils.atan2(mousePosition.x - currentPosition.x, -(mousePosition.y - currentPosition.y)) * 180.0D / MathUtils.PI) + ROTATION_OFFSET);
+    }
+
+    private void loadCrosshair() {
+        AssetUtil.loadAtlas("packs/hud.atlas");
+
+        TextureAtlas atlas = AssetUtil.getAtlas("packs/hud.atlas");
+
+        if(atlas != null) {
+            crosshairTexture = atlas.findRegion("crosshair");
+        }
     }
 }

@@ -4,6 +4,8 @@ import be.zwaldeck.killemall.component.Component;
 import be.zwaldeck.killemall.component.InputComponent;
 import be.zwaldeck.killemall.entity.Entity;
 import be.zwaldeck.killemall.entity.State;
+import be.zwaldeck.killemall.map.MapManager;
+import be.zwaldeck.killemall.util.CameraUtils;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
@@ -44,7 +46,7 @@ public class PlayerInputComponent extends InputComponent implements InputProcess
     }
 
     @Override
-    public void update(Entity entity, float delta) {
+    public void update(Entity entity, MapManager mapManager, float delta) {
         //todo: Pause functionality
 
         if(inputActions.get(InputAction.LEFT) || inputActions.get(InputAction.RIGHT) || inputActions.get(InputAction.UP) || inputActions.get(InputAction.DOWN)) {
@@ -56,11 +58,11 @@ public class PlayerInputComponent extends InputComponent implements InputProcess
 
         entity.sendMessageToComponents(MessageType.IS_LEFT, json.toJson(inputActions.get(InputAction.LEFT)));
         entity.sendMessageToComponents(MessageType.IS_RIGHT, json.toJson(inputActions.get(InputAction.RIGHT)));
-        entity.sendMessageToComponents(MessageType.IS_UP, json.toJson(inputActions.get(InputAction.DOWN)));
-        entity.sendMessageToComponents(MessageType.IS_DOWN, json.toJson(inputActions.get(InputAction.UP)));
+        entity.sendMessageToComponents(MessageType.IS_UP, json.toJson(inputActions.get(InputAction.UP)));
+        entity.sendMessageToComponents(MessageType.IS_DOWN, json.toJson(inputActions.get(InputAction.DOWN)));
         entity.sendMessageToComponents(MessageType.IS_FIRING, json.toJson(inputActions.get(InputAction.FIRE)));
         entity.sendMessageToComponents(MessageType.CURRENT_STATE, json.toJson(currentState));
-        entity.sendMessageToComponents(MessageType.CURRENT_MOUSE_POSITION, json.toJson(mousePosition));
+        entity.sendMessageToComponents(MessageType.CURRENT_MOUSE_POSITION, json.toJson(CameraUtils.screenToMap(mousePosition, mapManager.getCamera())));
 
     }
 
