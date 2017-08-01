@@ -1,5 +1,6 @@
 package be.zwaldeck.killemall.util;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -7,6 +8,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 public final class AssetUtil {
+    private static final String TAG = AssetUtil.class.getSimpleName();
+
     private static final AssetManager assetManager = new AssetManager();
     private static final InternalFileHandleResolver filePathResolver = new InternalFileHandleResolver();
 
@@ -39,13 +42,11 @@ public final class AssetUtil {
 
     public static void loadMapAsset(String path) {
         if(!canWeLoad(path)) {
+            Gdx.app.error(TAG, "Cannot load asset from path: " + path);
             return;
         }
 
         assetManager.load(path, TiledMap.class);
-
-        //unit we implement the loading screen, block thread
-        assetManager.finishLoading();
     }
 
     public static TiledMap getMapAsset(String path) {
@@ -54,13 +55,11 @@ public final class AssetUtil {
 
     public static void loadAtlas(String path) {
         if(!canWeLoad(path)) {
+            Gdx.app.error(TAG, "Cannot load asset from path: " + path);
             return;
         }
 
         assetManager.load(path, TextureAtlas.class);
-
-        //unit we implement the loading screen, block thread
-        assetManager.finishLoading();
     }
 
     public static TextureAtlas getAtlas(String path) {

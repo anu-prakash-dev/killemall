@@ -114,8 +114,6 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
     }
 
     private void loadCrosshair() {
-        AssetUtil.loadAtlas("packs/hud.atlas");
-
         TextureAtlas atlas = AssetUtil.getAtlas("packs/hud.atlas");
 
         if(atlas != null) {

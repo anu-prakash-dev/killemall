@@ -17,7 +17,6 @@ public class Map {
     private TiledMap currentMap;
 
     public Map(String mapPath) {
-        AssetUtil.loadMapAsset(mapPath);
         currentMap = AssetUtil.getMapAsset(mapPath);
     }
 

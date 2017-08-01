@@ -62,7 +62,6 @@ public abstract class GraphicsComponent implements Component {
     }
 
     protected Animation<TextureRegion> loadAnimation(AnimationConfig animationConfig) {
-        AssetUtil.loadAtlas("packs/" + animationConfig.getAtlasName());
         TextureAtlas atlas = AssetUtil.getAtlas("packs/" + animationConfig.getAtlasName());
 
         if (atlas != null) {
