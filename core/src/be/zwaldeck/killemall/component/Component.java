@@ -7,10 +7,14 @@ public interface Component {
         INIT_START_POSITION,
         INIT_STATE,
         INIT_ENTITY,
+        INIT_ANGLE,
+        INIT_GUN,
+        INIT_DIRECTION,
 
         CURRENT_POSITION,
         CURRENT_MOUSE_POSITION,
         CURRENT_STATE,
+        CURRENT_ANGLE,
 
         IS_FIRING,
         IS_LEFT,

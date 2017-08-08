@@ -1,8 +1,11 @@
 package be.zwaldeck.killemall.map;
 
-import be.zwaldeck.killemall.util.AssetUtil;
+import be.zwaldeck.killemall.entity.Entity;
+import be.zwaldeck.killemall.util.AssetUtils;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.utils.Array;
 
 public class Map {
     public static final float UNIT_SCALE = 1f / 32f;
@@ -16,8 +19,11 @@ public class Map {
 
     private TiledMap currentMap;
 
+    //entities
+    private Array<Entity> bulletEntities = new Array<Entity>();
+
     public Map(String mapPath) {
-        currentMap = AssetUtil.getMapAsset(mapPath);
+        currentMap = AssetUtils.getMapAsset(mapPath);
     }
 
     public MapLayer getMapLayer(String layerName) {
@@ -26,5 +32,16 @@ public class Map {
 
     public TiledMap getCurrentMap() {
         return currentMap;
+    }
+
+    public Array<Entity> getBulletEntities() {
+        return bulletEntities;
+    }
+
+    public void updateEntities(MapManager mapManager, Batch batch, float delta) {
+
+        for(int i = 0; i < bulletEntities.size; i++) {
+            bulletEntities.get(i).update(mapManager, batch, delta);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package be.zwaldeck.killemall.map;
 
+import be.zwaldeck.killemall.entity.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -41,6 +42,14 @@ public class MapManager {
     }
 
     public void updateMapEntities(Batch batch, float delta) {
+        currentMap.updateEntities(this, batch, delta);
+    }
 
+    public void addBullet(Entity bullet) {
+        currentMap.getBulletEntities().add(bullet);
+    }
+
+    public void removeBullet(Entity bullet) {
+        currentMap.getBulletEntities().removeValue(bullet, true);
     }
 }

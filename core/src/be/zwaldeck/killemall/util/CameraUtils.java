@@ -11,4 +11,8 @@ public final class CameraUtils {
         camera.unproject(pos);
         return new Vector2(pos.x, pos.y);
     }
+
+    public static boolean isOutOfScreen(OrthographicCamera camera, Vector2 pos) {
+        return !camera.frustum.pointInFrustum(pos.x, pos.y, 0);
+    }
 }

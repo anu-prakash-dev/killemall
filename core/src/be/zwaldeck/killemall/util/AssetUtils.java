@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
-public final class AssetUtil {
-    private static final String TAG = AssetUtil.class.getSimpleName();
+public final class AssetUtils {
+    private static final String TAG = AssetUtils.class.getSimpleName();
 
     private static final AssetManager assetManager = new AssetManager();
     private static final InternalFileHandleResolver filePathResolver = new InternalFileHandleResolver();

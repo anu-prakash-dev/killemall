@@ -1,7 +1,8 @@
 package be.zwaldeck.killemall.screen;
 
 import be.zwaldeck.killemall.KillEmAllGame;
-import be.zwaldeck.killemall.util.AssetUtil;
+import be.zwaldeck.killemall.gun.GunManager;
+import be.zwaldeck.killemall.util.AssetUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -38,18 +39,19 @@ public class LoadingScreen extends AbstractScreen {
         shapeRenderer = new ShapeRenderer();
 
         //All the assets we need to load
-        AssetUtil.loadAtlas("packs/hud.atlas");
-        AssetUtil.loadMapAsset("maps/forest.tmx");
-        AssetUtil.loadAtlas("packs/player.atlas");
+        AssetUtils.loadAtlas("packs/hud.atlas");
+        AssetUtils.loadAtlas("packs/items.atlas");
+        AssetUtils.loadMapAsset("maps/forest.tmx");
+        AssetUtils.loadAtlas("packs/player.atlas");
     }
 
     @Override
     public void render(float delta) {
-        if (AssetUtil.updateAssetsLoading()) {
+        if (AssetUtils.updateAssetsLoading()) {
             game.setScreen(new GameScreen(game));
         } else {
-            progress = AssetUtil.loadProgress();
-            System.out.println(progress);
+            GunManager.loadConfig(); // this will load the config once
+            progress = AssetUtils.loadProgress();
         }
 
         //Clear screen

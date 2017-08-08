@@ -5,11 +5,12 @@ import be.zwaldeck.killemall.component.GraphicsComponent;
 import be.zwaldeck.killemall.entity.Entity;
 import be.zwaldeck.killemall.entity.State;
 import be.zwaldeck.killemall.entity.config.AnimationType;
-import be.zwaldeck.killemall.entity.config.EntityConfig;
+import be.zwaldeck.killemall.entity.config.CharacterConfig;
 import be.zwaldeck.killemall.map.Map;
 import be.zwaldeck.killemall.map.MapManager;
 import be.zwaldeck.killemall.screen.GameScreen;
-import be.zwaldeck.killemall.util.AssetUtil;
+import be.zwaldeck.killemall.util.AssetUtils;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -23,7 +24,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class PlayerGraphicsComponent extends GraphicsComponent {
 
-    private static final float ROTATION_OFFSET = -0;
+    private static final float ROTATION_OFFSET = 195;
 
     //tmp
     ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -39,7 +40,7 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
 
         switch (type) {
             case INIT_ENTITY:
-                EntityConfig config = json.fromJson(EntityConfig.class, parts[0]);
+                CharacterConfig config = json.fromJson(CharacterConfig.class, parts[0]);
                 currentPosition = new Vector2(1600, 1600);
                 loadAnimations(config.getAnimations());
                 currentAnimation = animations.get(AnimationType.HANDGUN_IDLE);
@@ -63,7 +64,7 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
         updateAnimation(delta);
 
         updateCamera(mapManager);
-        updateAngle();
+        updateAngle(entity);
 
         batch.begin();
         batch.draw(currentFrame,
@@ -71,7 +72,7 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
                 entity.getWidth() / 2.0f, entity.getHeight() / 2.0f,
                 entity.getWidth(), entity.getHeight(),
                 1, 1,
-                angle, true);
+                angle + ROTATION_OFFSET, false);
         batch.draw(crosshairTexture, mousePosition.x - 16, mousePosition.y - 16, 32 ,32);
         batch.end();
 
@@ -109,12 +110,16 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
         camera.update();
     }
 
-    private void updateAngle() {
-        angle = (float) ((MathUtils.atan2(mousePosition.x - currentPosition.x, -(mousePosition.y - currentPosition.y)) * 180.0D / MathUtils.PI) + ROTATION_OFFSET);
+    private void updateAngle(Entity entity) {
+        Vector2 curPos = currentPosition.cpy();
+        curPos.x += entity.getWidth() / 2;
+        curPos.y += entity.getHeight() / 2;
+        angle = (float) Math.toDegrees(Math.atan2(mousePosition.x - curPos.x , -(mousePosition.y - curPos.y)));
+        entity.sendMessageToComponents(MessageType.CURRENT_ANGLE, json.toJson(angle));
     }
 
     private void loadCrosshair() {
-        TextureAtlas atlas = AssetUtil.getAtlas("packs/hud.atlas");
+        TextureAtlas atlas = AssetUtils.getAtlas("packs/hud.atlas");
 
         if(atlas != null) {
             crosshairTexture = atlas.findRegion("crosshair");

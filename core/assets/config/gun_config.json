@@ -1,0 +1,24 @@
+[
+  {
+    "class": "be.zwaldeck.killemall.gun.GunConfig",
+    "name": "GLOCK 23",
+    "maxAmmo": 80,
+    "maxAmmoInClip": 8,
+    "reloadTime": 1000,
+    "damage": 1.0,
+    "bulletSpeed": 10,
+    "gunType": "HANDGUN",
+    "fireType": "SEMI_AUTO"
+  },
+  {
+    "class": "be.zwaldeck.killemall.gun.GunConfig",
+    "name": "MP5",
+    "maxAmmo": 300,
+    "maxAmmoInClip": 30,
+    "reloadTime": 2000,
+    "damage": 0.6,
+    "bulletSpeed": 10,
+    "gunType": "SMG",
+    "fireType": "AUTO"
+  }
+]

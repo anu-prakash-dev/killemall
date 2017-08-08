@@ -5,7 +5,7 @@ import be.zwaldeck.killemall.entity.State;
 import be.zwaldeck.killemall.entity.config.AnimationConfig;
 import be.zwaldeck.killemall.entity.config.AnimationType;
 import be.zwaldeck.killemall.map.MapManager;
-import be.zwaldeck.killemall.util.AssetUtil;
+import be.zwaldeck.killemall.util.AssetUtils;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -62,7 +62,7 @@ public abstract class GraphicsComponent implements Component {
     }
 
     protected Animation<TextureRegion> loadAnimation(AnimationConfig animationConfig) {
-        TextureAtlas atlas = AssetUtil.getAtlas("packs/" + animationConfig.getAtlasName());
+        TextureAtlas atlas = AssetUtils.getAtlas("packs/" + animationConfig.getAtlasName());
 
         if (atlas != null) {
             return new Animation<TextureRegion>(animationConfig.getFrameTime(), atlas.findRegions(animationConfig.getRegionName()), animationConfig.getPlayMode());

@@ -6,12 +6,10 @@ public class EntityConfig {
 
     private int width;
     private int height;
-    private Array<AnimationConfig> animations;
 
-    public EntityConfig(int width, int height, Array<AnimationConfig> animations) {
+    public EntityConfig(int width, int height) {
         this.width = width;
         this.height = height;
-        this.animations = animations;
     }
 
     public EntityConfig() {
@@ -33,11 +31,4 @@ public class EntityConfig {
         this.height = height;
     }
 
-    public Array<AnimationConfig> getAnimations() {
-        return animations;
-    }
-
-    public void setAnimations(Array<AnimationConfig> animations) {
-        this.animations = animations;
-    }
 }
