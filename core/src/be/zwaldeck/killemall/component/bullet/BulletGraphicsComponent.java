@@ -13,6 +13,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class BulletGraphicsComponent extends GraphicsComponent {
 
+    private static final float ROTATION_OFFSET = -90;
+
     private float angle = 0.0f;
 
     @Override
@@ -43,12 +45,10 @@ public class BulletGraphicsComponent extends GraphicsComponent {
     @Override
     public void update(Entity entity, MapManager mapManager, Batch batch, float delta) {
         batch.begin();
-        batch.draw(currentFrame,
-                currentPosition.x, currentPosition.y,
-                entity.getWidth() / 2.0f, entity.getHeight() / 2.0f,
+        batch.draw(currentFrame, currentPosition.x, currentPosition.y,
+                entity.getWidth() / 2.0f,entity.getHeight() / 2.0f,
                 entity.getWidth(), entity.getHeight(),
-                1, 1,
-                angle, true);
+                1,1,angle + ROTATION_OFFSET);
         batch.end();
     }
 

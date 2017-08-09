@@ -78,13 +78,13 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
 
         calculateNextEntityPosition(delta);
 
-        updateFiring(mapManager, entity);
+        updateFiring(mapManager);
     }
 
     @Override
     public void dispose() {}
 
-    private void updateFiring(MapManager mapManager, Entity entity) {
+    private void updateFiring(MapManager mapManager) {
         if(isFiring) {
             if(gunManager.canCurrentGunFire(isTriggerReleased)) {
                 Vector2 bulletStartPos = currentEntityPosition.cpy();
@@ -97,6 +97,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
                 bullet.sendMessageToComponents(MessageType.INIT_START_POSITION, json.toJson(bulletStartPos));
                 bullet.sendMessageToComponents(MessageType.INIT_DIRECTION, json.toJson(diff));
                 bullet.sendMessageToComponents(MessageType.INIT_GUN, json.toJson(gunManager.getCurrentGun()));
+                bullet.sendMessageToComponents(MessageType.INIT_ANGLE, json.toJson(angle));
             }
         }
 
