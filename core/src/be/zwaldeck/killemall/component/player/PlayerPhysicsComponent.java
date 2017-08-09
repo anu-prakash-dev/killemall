@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-public class PlayerPhysicsComponent extends PhysicsComponent{
+public class PlayerPhysicsComponent extends PhysicsComponent {
 
     private boolean isFiring = false;
     private boolean isTriggerReleased = true;
@@ -27,7 +27,7 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
 
         this.gunManager = gunManager;
         velocity = new Vector2(200, 200);
-        mousePosition = new Vector2(0,0);
+        mousePosition = new Vector2(0, 0);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
         switch (type) {
             case INIT_ENTITY:
                 CharacterConfig config = json.fromJson(CharacterConfig.class, parts[0]);
-                currentEntityPosition.set(1600,1600);
-                nextEntityPosition.set(1600,1600);
+                currentEntityPosition.set(1600, 1600);
+                nextEntityPosition.set(1600, 1600);
                 initBoundingBox(config);
                 break;
             case IS_LEFT:
@@ -69,25 +69,36 @@ public class PlayerPhysicsComponent extends PhysicsComponent{
     public void update(Entity entity, MapManager mapManager, float delta) {
         updateBoundingBox(nextEntityPosition);
 
-        if(!isCollisionWithMapLayer(entity, mapManager)) {
+        if (!isCollisionWithMapLayer(entity, mapManager)) {
             setNextEntityPositionToCurrent(entity);
-        }
-        else {
+        } else {
             updateBoundingBox(currentEntityPosition);
         }
 
         calculateNextEntityPosition(delta);
 
-        updateFiring(mapManager);
+        updateFiring(mapManager, entity);
     }
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+    }
 
-    private void updateFiring(MapManager mapManager) {
-        if(isFiring) {
-            if(gunManager.canCurrentGunFire(isTriggerReleased)) {
+    private void updateFiring(MapManager mapManager, Entity entity) {
+        if (isFiring) {
+            if (gunManager.canCurrentGunFire(isTriggerReleased)) {
                 Vector2 bulletStartPos = currentEntityPosition.cpy();
+                bulletStartPos.add(-15, -5);
+
+                float angleInRad = (float)Math.toRadians(angle + 40);
+                float xNew = (bulletStartPos.x - (bulletStartPos.x + entity.getWidth() / 2.0f)) * MathUtils.cos(angleInRad)
+                        - (bulletStartPos.y - (bulletStartPos.y + entity.getHeight() / 2.0f)) * MathUtils.sin(angleInRad) + (bulletStartPos.x + entity.getWidth() / 2.0f);
+
+                float yNew = (bulletStartPos.y - (bulletStartPos.y + entity.getHeight() / 2.0f)) * MathUtils.cos(angleInRad)
+                        + (bulletStartPos.x - (bulletStartPos.x + entity.getWidth() / 2.0f)) * MathUtils.sin(angleInRad) + (bulletStartPos.y + entity.getHeight() / 2.0f);
+
+                bulletStartPos = new Vector2(xNew, yNew);
+
                 Vector2 targetPos = mousePosition.cpy();
                 Vector2 diff = new Vector2(targetPos.x - bulletStartPos.x, targetPos.y - bulletStartPos.y).nor();
 

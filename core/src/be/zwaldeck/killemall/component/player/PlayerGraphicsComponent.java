@@ -83,6 +83,11 @@ public class PlayerGraphicsComponent extends GraphicsComponent {
         shapeRenderer.setColor(Color.RED);
         shapeRenderer.rect(bb.x, bb.y, bb.width, bb.height);
         shapeRenderer.end();
+
+//        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+//        shapeRenderer.setColor(Color.BLUE);
+//        shapeRenderer.rect(bb.x + 47, bb.y + 50, 10, 10);
+//        shapeRenderer.end();
     }
 
     private void selectCurrentAnimation() {
